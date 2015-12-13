@@ -4,88 +4,92 @@
  */
 'use strict';
 
-var React = require('react-native');
-var async = require('async');
-var _ = require('lodash');
-var styles = require('./styles');
+import React from 'react-native';
+import _  from 'lodash';
+import async  from 'async';
+import styles  from './styles';
+import $  from 'jquery';
 
-var {
+let {
   AppRegistry,
+  Button,
   Image,
   ListView,
+  ScrollView,
   Text,
+  TextInput,
+  ToolbarAndroid,
   View,
 } = React;
 
-var thing = React.createClass({
+import strats from './strategies';
+
+let thing = React.createClass({
   getInitialState: function() {
     return {
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
-      loaded: false,
+      input: "42",
+      data: [],
     };
   },
-
-  componentDidMount: function() {
-    this.fetchData();
-  },
-
-  fetchData: function() {
-    async.parallel(
-      _.map(require('./strategies'), (strat, idx) => {
-        return strat.run.bind(strat)
-      })
-    , (err, result) => {
-      if(err){
-        console.error(err.stack);
-      }
-      console.log(result)
-      result = _.compact(result)
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(result),
-        loaded: true,
-      });
-    })
-  },
-
   render: function() {
-    if (!this.state.loaded) {
-      return this.renderLoadingView();
-    }
-
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderMovie}
-        style={styles.components.listView}
-      />
+      <ScrollView style={styles.components.body}>
+        <View>
+          <TextInput value={this.state.input}></TextInput>
+        </View>
+        {
+          strats.map((i, idx)=>{
+            return (
+              <Sites key={idx} site={idx}></Sites>
+            )
+          })
+        }
+      </ScrollView>
     );
   },
 
-  renderLoadingView: function() {
-    return (
-      <View style={styles.components.container}>
-        <Text>
-          Loading pr0n...
-        </Text>
-      </View>
-    );
-  },
-
-  renderMovie: function(movie) {
-    return (
-      <View style={styles.components.container}>
-        {movie.map((movie) => {
-          return <Image
-            key={movie.id}
-            source={{uri: movie.preview_url}}
-            style={styles.components.thumbnail}
-          />;
-        })}
-      </View>
-    );
-  },
 });
 
+let Sites = React.createClass({
+  getInitialState: function() {
+    return {
+      data: [],
+      site: strats[this.props.site]
+    };
+  },
+  componentDidMount: function(){
+    console.log(strats[this.props.site].run)
+    strats[this.props.site].run( (err, images) => {
+
+      this.setState({
+        data : images,
+
+      })
+    })
+  },
+  render : function(){
+    return (
+      <View key={this.props.site} >
+        <View style={styles.components.siteContainer}>
+          <Image source={{uri: "http://placehold.it/16x16"}} style={styles.components.favicon}/>
+          <Text style={styles.components.title}>{this.state.site.name}</Text>
+        </View>
+        <ScrollView horizontal={true} contentContainerStyle={styles.components.horizontalScrollContainer}>
+          {
+            this.state.data.map(this.renderSite)
+          }
+        </ScrollView>
+      </View>
+    )
+  },
+  renderSite : function(image){
+    return (
+      <Image
+        key={image.id}
+        source={{uri: image.preview_url}}
+        style={styles.components.thumbnail}
+      />
+    )
+  }
+})
 AppRegistry.registerComponent('thing', () => thing);

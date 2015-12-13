@@ -6,7 +6,9 @@
     "start": "react-native start"
   },
   "dependencies": {
+    "async": "^1.5.0",
     "jquery": "^2.1.4",
+    "lodash": "^3.10.1",
     "react-native": "^0.16.0"
   }
 }

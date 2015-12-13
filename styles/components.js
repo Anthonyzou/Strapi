@@ -1,34 +1,51 @@
-var React = require('react-native');
+import React from 'react-native';
 var {
   StyleSheet
 } = React;
 
 
 module.exports = StyleSheet.create({
+  body : {
+    flex: 1,
+    overflow: 'visible',
+  },
+  toolBar:{
+    backgroundColor: "#000",
+  },
   container: {
+    alignItems: 'center',
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
     overflow: "visible",
-    backgroundColor: '#F5FCFF',
-  },
-  rightContainer: {
-    flex: 1,
+    padding: 2,
   },
   title: {
     fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center',
+    margin: 4,
   },
-  year: {
-    textAlign: 'center',
+  siteContainer : {
+    alignItems: "center",
+    flex: 1,
+    flexDirection: "row",
+    padding: 4,
+  },
+  favicon: {
+    height: 16,
+    width: 16,
+  },
+  horizontalScrollContainer :{
+    height: 100,
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    overflow: "visible",
+    padding: 2,
   },
   thumbnail: {
-    width: 53,
-    height: 81,
-  },
-  listView: {
-    backgroundColor: '#F5FCFF',
+    height: 100,
+    marginRight: 2,
+    width: 100,
   },
 });
