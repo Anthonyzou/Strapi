@@ -7,10 +7,11 @@ var {
 module.exports = StyleSheet.create({
   body : {
     flex: 1,
-    overflow: 'visible',
+    marginBottom: 20,
   },
   toolBar:{
-    backgroundColor: "#000",
+    backgroundColor: "#353535",
+    height: 40,
   },
   container: {
     alignItems: 'center',
@@ -34,18 +35,20 @@ module.exports = StyleSheet.create({
     height: 16,
     width: 16,
   },
+  layout:{
+    flex:1,
+    elevation: 4,
+  },
   horizontalScrollContainer :{
     height: 100,
     alignItems: 'center',
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    overflow: "visible",
-    padding: 2,
   },
   thumbnail: {
     height: 100,
-    marginRight: 2,
+    margin: 1,
     width: 100,
   },
 });

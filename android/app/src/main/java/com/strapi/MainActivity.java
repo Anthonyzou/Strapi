@@ -1,4 +1,4 @@
-package com.thing;
+package com.strapi;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -30,7 +30,7 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();
 
-        mReactRootView.startReactApplication(mReactInstanceManager, "thing", null);
+        mReactRootView.startReactApplication(mReactInstanceManager, "strapi", null);
 
         setContentView(mReactRootView);
     }

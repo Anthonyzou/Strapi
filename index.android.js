@@ -20,76 +20,133 @@ let {
   TextInput,
   ToolbarAndroid,
   View,
+  TouchableOpacity,
+  TouchableHighlight,
+  PullToRefreshViewAndroid,
 } = React;
 
 import strats from './strategies';
 
-let thing = React.createClass({
-  getInitialState: function() {
+let strapi = React.createClass({
+  getInitialState () {
     return {
       input: "42",
-      data: [],
+      colors: [16711680]
     };
   },
-  render: function() {
-    return (
-      <ScrollView style={styles.components.body}>
-        <View>
-          <TextInput value={this.state.input}></TextInput>
-        </View>
-        {
-          strats.map((i, idx)=>{
-            return (
-              <Sites key={idx} site={idx}></Sites>
-            )
-          })
-        }
-      </ScrollView>
-    );
+  handleChange (change) {
+    // return console.log(change);
+    this.setState({
+      isRefreshing: false,
+      input: change
+    });
   },
 
+  render() {
+    return (
+        <View style={styles.components.body}>
+          <ToolbarAndroid
+            style={styles.components.toolBar}
+            title="Strapi"
+            onActionSelected={this.onActionSelected} />
+          <TextInput
+            multiline={false}
+            value={this.state.input}
+            onChangeText={this.handleChange}></TextInput>
+          <PullToRefreshViewAndroid
+            style={styles.components.body}
+            refreshing={this.state.isRefreshing}
+            onRefresh={this._onRefresh}
+            colors={['#ff0000', '#00ff00', '#0000ff']}
+            progressBackgroundColor={'#ffff00'}
+            >
+            <ScrollView  style={styles.components.body}>
+
+              {
+                strats.map((i, idx)=>{
+                  return (
+                    <Sites key={idx} site={idx}></Sites>
+                  )
+                })
+              }
+            </ScrollView>
+          </PullToRefreshViewAndroid>
+        </View>
+    );
+  },
+  _onRefresh(){
+    this.setState({isRefreshing: true});
+    setTimeout(() => {
+      this.setState({
+        isRefreshing: false,
+      });
+    }, 5000);
+  }
 });
 
 let Sites = React.createClass({
-  getInitialState: function() {
+  getInitialState () {
     return {
-      data: [],
+      images: [],
       site: strats[this.props.site]
     };
   },
-  componentDidMount: function(){
-    console.log(strats[this.props.site].run)
+  componentDidMount (){
     strats[this.props.site].run( (err, images) => {
-
       this.setState({
-        data : images,
-
+        images : images,
       })
     })
   },
-  render : function(){
+  render(){
     return (
-      <View key={this.props.site} >
+      <View key={this.props.site}>
         <View style={styles.components.siteContainer}>
           <Image source={{uri: "http://placehold.it/16x16"}} style={styles.components.favicon}/>
           <Text style={styles.components.title}>{this.state.site.name}</Text>
         </View>
-        <ScrollView horizontal={true} contentContainerStyle={styles.components.horizontalScrollContainer}>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.components.horizontalScrollContainer}>
           {
-            this.state.data.map(this.renderSite)
+            this.state.images.map(this.renderImage)
           }
         </ScrollView>
       </View>
     )
   },
-  renderSite : function(image){
+  ImageChange (a,e){
+    console.log(e);
+  },
+  renderImage (image){
+    var handle = (e) => {
+      console.log(e, image);
+    }
     return (
-      <Image
-        key={image.id}
-        source={{uri: image.preview_url}}
-        style={styles.components.thumbnail}
-      />
+      <TouchableHighlight key={image.id} onPress={handle}>
+        <Image
+
+          source={{uri: image.preview_url}}
+          style={styles.components.thumbnail}
+          />
+      </TouchableHighlight>
     )
   }
 })
-AppRegistry.registerComponent('thing', () => thing);
+
+let singleImage = React.createClass({
+  render(){
+    return (
+      <TouchableHighlight key={image.id} onPress={handle}>
+        <Image
+          source={{uri: image.preview_url}}
+          style={styles.components.thumbnail}
+          />
+      </TouchableHighlight>
+    )
+  }
+});
+
+
+AppRegistry.registerComponent('strapi', () => strapi);
