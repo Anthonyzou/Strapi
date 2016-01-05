@@ -10,7 +10,7 @@ import async  from 'async';
 import styles  from './styles';
 import $  from 'jquery';
 
-let {
+const {
   AppRegistry,
   Button,
   Image,
@@ -27,7 +27,7 @@ let {
 
 import strats from './strategies';
 
-let strapi = React.createClass({
+var strapi = React.createClass({
   getInitialState () {
     return {
       input: "42",
@@ -61,7 +61,6 @@ let strapi = React.createClass({
             progressBackgroundColor={'#ffff00'}
             >
             <ScrollView  style={styles.components.body}>
-
               {
                 strats.map((i, idx)=>{
                   return (
@@ -84,7 +83,7 @@ let strapi = React.createClass({
   }
 });
 
-let Sites = React.createClass({
+const Sites = React.createClass({
   getInitialState () {
     return {
       images: [],
@@ -104,6 +103,7 @@ let Sites = React.createClass({
         <View style={styles.components.siteContainer}>
           <Image source={{uri: "http://placehold.it/16x16"}} style={styles.components.favicon}/>
           <Text style={styles.components.title}>{this.state.site.name}</Text>
+          <Text style={styles.components.title}>Favorites</Text>
         </View>
         <ScrollView
           horizontal={true}
@@ -116,9 +116,6 @@ let Sites = React.createClass({
       </View>
     )
   },
-  ImageChange (a,e){
-    console.log(e);
-  },
   renderImage (image){
     var handle = (e) => {
       console.log(e, image);
@@ -126,7 +123,6 @@ let Sites = React.createClass({
     return (
       <TouchableHighlight key={image.id} onPress={handle}>
         <Image
-
           source={{uri: image.preview_url}}
           style={styles.components.thumbnail}
           />
@@ -135,7 +131,7 @@ let Sites = React.createClass({
   }
 })
 
-let singleImage = React.createClass({
+const singleImage = React.createClass({
   render(){
     return (
       <TouchableHighlight key={image.id} onPress={handle}>

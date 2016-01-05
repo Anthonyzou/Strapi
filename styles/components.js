@@ -37,18 +37,17 @@ module.exports = StyleSheet.create({
   },
   layout:{
     flex:1,
-    elevation: 4,
   },
   horizontalScrollContainer :{
-    height: 100,
     alignItems: 'center',
     flex: 1,
+    minHeight: 110,
     flexDirection: 'row',
     justifyContent: 'center',
   },
   thumbnail: {
+    margin: 5,
     height: 100,
-    margin: 1,
     width: 100,
   },
 });
