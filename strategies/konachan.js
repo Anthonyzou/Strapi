@@ -1,6 +1,6 @@
 'use strict';
 import _  from 'lodash';
-module.exports = class konachan{
+export default class konachan{
   constructor(){
     this.url = "https://konachan.com/" ;
     this.home = "https://konachan.com/post/index.json";

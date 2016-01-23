@@ -1,6 +1,6 @@
 'use strict';
 import _  from 'lodash';
-module.exports = class yandre{
+export default class yandre{
   constructor(){
     this.url = "https://yande.re" ;
     this.home = "https://yande.re/post/index.json";

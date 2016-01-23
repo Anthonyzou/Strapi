@@ -1,7 +1,7 @@
 'use strict';
 import _  from 'lodash';
 
-module.exports = class danbooru{
+export default class danbooru{
   constructor(){
     this.url = "https://danbooru.donmai.us";
     this.home = "https://danbooru.donmai.us/post/index.json";
