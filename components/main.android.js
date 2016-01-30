@@ -41,39 +41,40 @@ export default class Index extends Component{
   }
 
   render() {
-
     return (
       <DrawerLayoutAndroid
-      drawerWidth={300}
-      drawerPosition={DrawerLayoutAndroid.positions.Right}
-      renderNavigationView={() => this.navigationView}>
-        <View style={styles.components.body}>
-          <ToolbarAndroid
-            style={styles.components.toolBar}
-            title="Strapi"
-            onActionSelected={this.onActionSelected} />
-          <TextInput
-            multiline={false}
-            value={this.state.input}
-            onChangeText={this.handleChange.bind(this)}></TextInput>
-          <PullToRefreshViewAndroid
-            style={styles.components.body}
-            refreshing={this.state.isRefreshing}
-            onRefresh={this._onRefresh.bind(this)}
-            colors={['#ff0000', '#00ff00', '#0000ff']}
-            progressBackgroundColor={'#ffff00'}
-            >
-            <ScrollView  style={styles.components.body}>
-              {
-                strats.map((i, idx)=>{
-                  return (
-                    <Sites key={idx} site={idx}></Sites>
-                  )
-                })
-              }
-            </ScrollView>
-          </PullToRefreshViewAndroid>
-        </View>
+        drawerWidth={300}
+        drawerPosition={DrawerLayoutAndroid.positions.Right}
+        renderNavigationView={() => this.navigationView}>
+        <Image source={require('./assets/pattern8-pattern1.jpg')} style={{flex:1}}>
+          <View style={styles.components.body}>
+            <ToolbarAndroid
+              style={styles.components.toolBar}
+              title="Strapi"
+              onActionSelected={this.onActionSelected} />
+            <TextInput
+              multiline={false}
+              value={this.state.input}
+              onChangeText={this.handleChange.bind(this)}></TextInput>
+            <PullToRefreshViewAndroid
+              style={styles.components.body}
+              refreshing={this.state.isRefreshing}
+              onRefresh={this._onRefresh.bind(this)}
+              colors={['#ff0000', '#00ff00', '#0000ff']}
+              progressBackgroundColor={'#ffff00'}
+              >
+              <ScrollView  style={styles.components.body}>
+                {
+                  strats.map((i, idx)=>{
+                    return (
+                      <Sites key={idx} site={idx}></Sites>
+                    )
+                  })
+                }
+              </ScrollView>
+            </PullToRefreshViewAndroid>
+          </View>
+        </Image>
       </DrawerLayoutAndroid>
     );
   }
