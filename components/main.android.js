@@ -39,19 +39,24 @@ export default class Index extends Component{
       input: change
     });
   }
-
+  onActionSelected() {
+    this.refs['DRAWER'].openDrawer();
+  }
   render() {
     return (
       <DrawerLayoutAndroid
         drawerWidth={300}
         drawerPosition={DrawerLayoutAndroid.positions.Right}
+        ref={'DRAWER'}
         renderNavigationView={() => this.navigationView}>
+        <ToolbarAndroid
+
+          style={styles.components.toolBar}
+          title="Strapi"
+          actions={[{title: 'Drawer!', show: 'always'}]}
+          onActionSelected={this.onActionSelected.bind(this)} />
         <Image source={require('./assets/pattern8-pattern1.jpg')} style={{flex:1}}>
           <View style={styles.components.body}>
-            <ToolbarAndroid
-              style={styles.components.toolBar}
-              title="Strapi"
-              onActionSelected={this.onActionSelected} />
             <TextInput
               multiline={false}
               value={this.state.input}
