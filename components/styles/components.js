@@ -7,12 +7,18 @@ var {
 module.exports = StyleSheet.create({
   body : {
     flex: 1,
-    marginBottom: 20,
   },
   toolBar:{
     backgroundColor: "#353535",
     height: 56,
     elevation: 1,
+    flexDirection : 'row'
+  },
+  listView : {
+    height: 100,
+  },
+  input: {
+    flex: 1,
   },
   container: {
     alignItems: 'center',
@@ -30,7 +36,7 @@ module.exports = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     flexDirection: "row",
-    padding: 4,
+    overflow: 'visible',
   },
   favicon: {
     height: 16,
@@ -38,13 +44,6 @@ module.exports = StyleSheet.create({
   },
   layout:{
     flex:1,
-  },
-  horizontalScrollContainer :{
-    alignItems: 'center',
-    flex: 1,
-    minHeight: 110,
-    flexDirection: 'row',
-    justifyContent: 'center',
   },
   thumbnail: {
     margin: 5,
