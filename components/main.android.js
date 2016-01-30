@@ -1,20 +1,19 @@
 
 
 import React, {
-  AppRegistry,
-  Button,
-  Image,
   Component,
+  DrawerLayoutAndroid,
+  Image,
   ListView,
+  Navigator,
+  PullToRefreshViewAndroid,
   ScrollView,
   Text,
   TextInput,
   ToolbarAndroid,
-  View,
-  TouchableOpacity,
   TouchableHighlight,
-  PullToRefreshViewAndroid,
-  Navigator
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 import styles  from './styles';
@@ -24,9 +23,14 @@ export default class Index extends Component{
   constructor (props, context) {
     super(props, context);
     this.state = {
-      input: "42",
+      input: "",
       colors: [16711680]
     };
+    this.navigationView = (
+      <View style={{flex: 1, backgroundColor: '#fff'}}>
+        <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
+      </View>
+    )
   }
   handleChange (change) {
     // return console.log(change);
@@ -37,34 +41,40 @@ export default class Index extends Component{
   }
 
   render() {
+
     return (
-      <View style={styles.components.body}>
-        <ToolbarAndroid
-          style={styles.components.toolBar}
-          title="Strapi"
-          onActionSelected={this.onActionSelected} />
-        <TextInput
-          multiline={false}
-          value={this.state.input}
-          onChangeText={this.handleChange}></TextInput>
-        <PullToRefreshViewAndroid
-          style={styles.components.body}
-          refreshing={this.state.isRefreshing}
-          onRefresh={this._onRefresh}
-          colors={['#ff0000', '#00ff00', '#0000ff']}
-          progressBackgroundColor={'#ffff00'}
-          >
-          <ScrollView  style={styles.components.body}>
-            {
-              strats.map((i, idx)=>{
-                return (
-                  <Sites key={idx} site={idx}></Sites>
-                )
-              })
-            }
-          </ScrollView>
-        </PullToRefreshViewAndroid>
-      </View>
+      <DrawerLayoutAndroid
+      drawerWidth={300}
+      drawerPosition={DrawerLayoutAndroid.positions.Right}
+      renderNavigationView={() => this.navigationView}>
+        <View style={styles.components.body}>
+          <ToolbarAndroid
+            style={styles.components.toolBar}
+            title="Strapi"
+            onActionSelected={this.onActionSelected} />
+          <TextInput
+            multiline={false}
+            value={this.state.input}
+            onChangeText={this.handleChange.bind(this)}></TextInput>
+          <PullToRefreshViewAndroid
+            style={styles.components.body}
+            refreshing={this.state.isRefreshing}
+            onRefresh={this._onRefresh.bind(this)}
+            colors={['#ff0000', '#00ff00', '#0000ff']}
+            progressBackgroundColor={'#ffff00'}
+            >
+            <ScrollView  style={styles.components.body}>
+              {
+                strats.map((i, idx)=>{
+                  return (
+                    <Sites key={idx} site={idx}></Sites>
+                  )
+                })
+              }
+            </ScrollView>
+          </PullToRefreshViewAndroid>
+        </View>
+      </DrawerLayoutAndroid>
     );
   }
   _onRefresh(){
@@ -116,7 +126,10 @@ class Sites extends Component{
       console.log(e, image);
     }
     return (
-      <TouchableHighlight key={image.id} onPress={handle}>
+      <TouchableHighlight
+        underlayColor={"#f0f0f0"}
+        key={image.id}
+        onPress={handle}>
         <Image
           source={{uri: image.preview_url}}
           style={styles.components.thumbnail}

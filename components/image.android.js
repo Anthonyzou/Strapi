@@ -1,7 +1,5 @@
 
 import React, {
-  AppRegistry,
-  Button,
   Image,
   Component,
   ListView,
