@@ -4,3 +4,5 @@
      ___) | |_| | | (_| | |_) | |
     |____/ \__|_|  \__,_| .__/|_|
                         |_|      
+
+Clone of an app removed from the play store.

@@ -1,11 +1,12 @@
 'use strict';
 import _  from 'lodash';
-export default class konachan{
+export default class Konachan{
   constructor(){
     this.url = "https://konachan.com/" ;
     this.home = "https://konachan.com/post/index.json";
     this.name = "Konachan";
     this.favicon = "https://konachan.com/favicon.ico";
+    this.enabled = true;
   }
   run(cb){
     fetch(this.home)

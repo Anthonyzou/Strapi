@@ -9,6 +9,7 @@
   "dependencies": {
     "async": "^1.5.2",
     "lodash": "^4.0.0",
-    "react-native": "^0.18.0"
+    "react-native": "^0.18.0",
+    "react-native-router-flux": "^2.1.3"
   }
 }
