@@ -1,3 +1,3 @@
-rootProject.name = 'strapi'
+rootProject.name = 'Strapi'
 
 include ':app'

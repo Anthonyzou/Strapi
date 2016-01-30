@@ -17,8 +17,8 @@ import React, {
   Navigator
 } from 'react-native';
 
-import styles  from '../styles';
-import strats from '../strategies';
+import styles  from './styles';
+import strats from './strategies';
 
 export default class Index extends Component{
   constructor (props, context) {
