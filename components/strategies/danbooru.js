@@ -1,8 +1,10 @@
 'use strict';
 import _  from 'lodash';
+import Site from '../Site';
 
-export default class Danbooru{
-  constructor(){
+export default class Danbooru extends Site{
+  constructor(props, context){
+    super(props,context)
     this.url = "https://danbooru.donmai.us";
     this.home = "https://danbooru.donmai.us/post/index.json";
     this.name = "Danbooru";
@@ -14,7 +16,7 @@ export default class Danbooru{
       .then((response) => response.json())
       .then((responseData) => {
         this.responseData = _.map(responseData,(item) =>{
-          item.preview_url = this.url+item.preview_url
+          item.preview_url = `${this.url}${item.preview_url}`
           return item;
         })
         cb(null, this.responseData);

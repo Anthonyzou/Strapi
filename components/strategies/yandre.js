@@ -1,8 +1,10 @@
 'use strict';
 import _  from 'lodash';
+import Site from '../Site';
 
-export default class Yandre{
-  constructor(){
+export default class Yandre extends Site{
+  constructor(props, context){
+    super(props,context)
     this.url = "https://yande.re";
     this.home = "https://yande.re/post/index.json";
     this.name = "Yandre";

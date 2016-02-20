@@ -17,17 +17,21 @@ import React, {
 } from 'react-native';
 
 import styles  from './styles';
-import strats from './strategies';
+import Strats from './strategies';
+import {Actions} from 'react-native-router-flux'
+import _ from 'lodash'
+import Async from 'async'
 
 export default class Index extends Component{
   constructor (props, context) {
     super(props, context);
+
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      sites: ds.cloneWithRows(strats),
+      sites: ds.cloneWithRows(Strats),
       input: "",
-      colors: [16711680],
     };
+    this.thisSites = []
     this.navigationView = (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
         <TouchableHighlight
@@ -53,6 +57,7 @@ export default class Index extends Component{
       </View>
     )
   }
+
   handleChange (change) {
     // return console.log(change);
     this.setState({
@@ -60,10 +65,20 @@ export default class Index extends Component{
       input: change
     });
   }
-  onActionSelected(position) {
 
+  onActionSelected(position) {
     this.refs['DRAWER'].openDrawer();
   }
+
+  renderRow(Site) {
+
+    return <Site callback={this.cb.bind(this)}/>
+  }
+
+  cb(updateFn) {
+    this.thisSites = _.concat(this.thisSites, updateFn)
+  }
+
   render() {
     return (
       <DrawerLayoutAndroid
@@ -82,84 +97,30 @@ export default class Index extends Component{
               value={this.state.input}
               onChangeText={this.handleChange.bind(this)}></TextInput>
         </ToolbarAndroid>
-          <PullToRefreshViewAndroid
-            style={styles.components.body}
-            refreshing={this.state.isRefreshing}
-            onRefresh={this._onRefresh.bind(this)}
-            colors={['#ff0000', '#00ff00', '#0000ff']}
-            progressBackgroundColor={'#ffff00'}
-            >
-
-                <ListView
-                  dataSource={this.state.sites}
-                  renderScrollComponent={props => <RecyclerViewBackedScrollView {...props}></RecyclerViewBackedScrollView>}
-                  renderRow={(site, i, idx) => <Sites key={idx} site={idx}></Sites>}
-                />
-
-          </PullToRefreshViewAndroid>
+        <PullToRefreshViewAndroid
+          style={styles.components.body}
+          refreshing={this.state.isRefreshing}
+          onRefresh={this._onRefresh.bind(this)}
+          colors={['#ff1234', '#00ff00', '#0000ff']}
+          progressBackgroundColor={'white'}
+          >
+            <ListView
+              dataSource={this.state.sites}
+              renderScrollComponent={props => <RecyclerViewBackedScrollView {...props}></RecyclerViewBackedScrollView>}
+              renderRow={this.renderRow.bind(this)}
+            />
+        </PullToRefreshViewAndroid>
       </DrawerLayoutAndroid>
     );
   }
   _onRefresh(){
     this.setState({isRefreshing: true});
-    setTimeout(() => {
-      this.setState({
-        isRefreshing: false,
-      });
-    }, 1000);
-  }
-}
-
-class Sites extends Component{
-  constructor (props, context) {
-    super(props, context);
-    this.state = {
-      site: strats[this.props.site],
-    };
-  }
-  componentDidMount (){
-    strats[this.props.site].run( (err, images) => {
-      var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-      this.setState({
-        loaded: true,
-        ds : ds.cloneWithRows(images)
-      })
+    Async.parallel(
+      this.thisSites,
+      (err, result)=>{
+        this.setState({
+          isRefreshing: false,
+        });
     })
-  }
-  render(){
-    return (
-      <View key={this.props.site} style={{flex: 1}}>
-        <View style={styles.components.siteContainer}>
-          <Image source={{uri: "http://placehold.it/16x16"}} style={styles.components.favicon}/>
-          <Text style={styles.components.title}>{this.state.site.name}</Text>
-          <Text style={styles.components.title}>Favorites</Text>
-        </View>
-        { this.state.loaded &&
-          <ListView
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            dataSource={this.state.ds}
-            renderRow={this.renderImage}
-            style={styles.components.listView}
-          />
-        }
-      </View>
-    )
-  }
-  renderImage (image, reactID, idx){
-    var handle = (e) => {
-      console.log(e, image);
-    }
-    return (
-      <TouchableHighlight
-        underlayColor={"#f0f0f0"}
-        key={image.id}
-        onPress={handle}>
-        <Image
-          source={{uri: image.preview_url}}
-          style={styles.components.thumbnail}
-        />
-      </TouchableHighlight>
-    )
   }
 }

@@ -1,7 +1,10 @@
 'use strict';
 import _  from 'lodash';
-export default class Konachan{
-  constructor(){
+import Site from '../Site';
+
+export default class Konachan extends Site{
+  constructor(props, context){
+    super(props,context)
     this.url = "https://konachan.com/" ;
     this.home = "https://konachan.com/post/index.json";
     this.name = "Konachan";

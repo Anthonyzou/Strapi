@@ -34,7 +34,6 @@ module.exports = StyleSheet.create({
   },
   siteContainer : {
     alignItems: "center",
-    flex: 1,
     flexDirection: "row",
     overflow: 'visible',
   },
@@ -46,7 +45,7 @@ module.exports = StyleSheet.create({
     flex:1,
   },
   thumbnail: {
-    margin: 5,
+    padding: 5,
     height: 100,
     width: 100,
   },

@@ -7,11 +7,13 @@
 import React, {
   AppRegistry,
   Component,
-  Navigator
+  Navigator,
+  BackAndroid
 } from 'react-native';
 
 import {Actions, Router, Route, Schema, Animations, TabBar} from 'react-native-router-flux'
 import Index from './components/main'
+import SingleImage from './components/SingleImageWithGallerySwipe'
 
 class Strapi extends Component{
   constructor (props, context) {
@@ -23,10 +25,16 @@ class Strapi extends Component{
     return (
       <Router hideNavBar={true}>
         <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
-        <Route name="Login" type="reset" component={Index}/>
+        <Route name="Index" component={Index}/>
+        <Route name="SingleImage" component={SingleImage}/>
       </Router>
     )
   }
 }
+
+BackAndroid.addEventListener('hardwareBackPress', () => {
+  Actions.pop();
+  return true;
+});
 
 AppRegistry.registerComponent('Strapi', () => Strapi);
