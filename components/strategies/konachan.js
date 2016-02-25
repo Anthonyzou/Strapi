@@ -11,7 +11,7 @@ export default class Konachan extends Site{
     this.favicon = "https://konachan.com/favicon.ico";
     this.enabled = true;
   }
-  run(cb){
+  run(cb) {
     fetch(this.home)
       .then((response) => response.json())
       .then((responseData) => {

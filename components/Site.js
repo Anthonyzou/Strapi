@@ -2,11 +2,11 @@
 import React, {
   Component,
   DrawerLayoutAndroid,
-  Image,
   ListView,
   PullToRefreshViewAndroid,
   ScrollView,
   Text,
+  Image,
   TextInput,
   ToolbarAndroid,
   TouchableHighlight,
@@ -17,7 +17,7 @@ import React, {
 
 import styles  from './styles';
 import {Actions} from 'react-native-router-flux'
-
+import ImageCache from 'react-native-image-cache'
 export default class Site extends Component{
   constructor (props, context) {
     super(props, context);
@@ -26,7 +26,7 @@ export default class Site extends Component{
     this.props.callback(this.load.bind(this))
   }
 
-  componentDidMount = this.load.bind(this)
+  componentDidMount = this.load.bind(this);
 
   load (cb){
     this.run( (err, images) => {
@@ -47,7 +47,7 @@ export default class Site extends Component{
         <View style={{flexDirection:'row', flex: 1}}>
           <TouchableHighlight >
             <View style={{flexDirection:'row', flexDirection: 'row', alignItems : 'center'}}>
-              <Image source={{uri: this.favicon}} style={styles.components.favicon}/>
+              <ImageCache src={this.favicon} style={styles.components.favicon}/>
               <Text style={styles.components.title}>{this.name}</Text>
             </View>
           </TouchableHighlight>
@@ -70,10 +70,9 @@ export default class Site extends Component{
     return (
       <TouchableHighlight
         underlayColor={"#f0f0f0"}
-        key={image.id}
-        onPress={Actions.SingleImage}>
-        <Image
-          source={{uri: image.preview_url}}
+        onPress={Actions.SingleImage.bind(null, {image:image})}>
+        <ImageCache
+          src={image.preview_url}
           style={styles.components.thumbnail}
         />
       </TouchableHighlight>

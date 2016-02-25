@@ -1,6 +1,8 @@
 package com.strapi;
 
 import com.facebook.react.ReactActivity;
+import com.image.cache.ReactImageCache;
+import com.image.zoom.ReactImageZoom;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 
@@ -34,7 +36,9 @@ public class MainActivity extends ReactActivity {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-        new MainReactPackage()
+        new MainReactPackage(),
+        new ReactImageCache(),
+        new ReactImageZoom()
       );
     }
 }

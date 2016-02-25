@@ -8,13 +8,27 @@ import React, {
   AppRegistry,
   Component,
   Navigator,
-  BackAndroid
+  BackAndroid,
+  Dimensions,
+  PanResponder,
+  TouchableWithoutFeedback,
+  Text,
+  View,
 } from 'react-native';
 
 import {Actions, Router, Route, Schema, Animations, TabBar} from 'react-native-router-flux'
 import Index from './components/main'
 import SingleImage from './components/SingleImageWithGallerySwipe'
+import ImageZoom from 'react-native-image-zoom'
 
+const {height, width} = Dimensions.get('window');
+class Image extends Component{
+  render(){
+    return (
+      <ImageZoom  onTap={Actions.pop} style={{flex:1, width:width, height: height}} src={this.props.url}></ImageZoom>
+    )
+  }
+}
 class Strapi extends Component{
   constructor (props, context) {
     super(props, context);
@@ -27,6 +41,7 @@ class Strapi extends Component{
         <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
         <Route name="Index" component={Index}/>
         <Route name="SingleImage" component={SingleImage}/>
+        <Route name="Image" component={Image}></Route>
       </Router>
     )
   }

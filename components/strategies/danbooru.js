@@ -17,6 +17,7 @@ export default class Danbooru extends Site{
       .then((responseData) => {
         this.responseData = _.map(responseData,(item) =>{
           item.preview_url = `${this.url}${item.preview_url}`
+          item.jpeg_url = `${this.url}${item.file_url}`
           return item;
         })
         cb(null, this.responseData);

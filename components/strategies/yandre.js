@@ -15,7 +15,10 @@ export default class Yandre extends Site{
     fetch(this.home)
       .then((response) => response.json())
       .then((responseData) => {
-        this.responseData = responseData;
+        this.responseData = _.map(responseData,(item) =>{
+          item.jpeg_url = `http://files.yande.re/jpeg/${item.md5}/${item.id}.jpg`
+          return item;
+        })
         cb(null, responseData);
       })
       .catch((err) => {
