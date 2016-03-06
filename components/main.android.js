@@ -98,7 +98,7 @@ export default class Index extends Component{
               onChangeText={this.handleChange.bind(this)}></TextInput>
         </ToolbarAndroid>
         <PullToRefreshViewAndroid
-          style={styles.components.body}
+          style={[styles.components.body,{ backgroundColor: '#4a4a4a'}]}
           refreshing={this.state.isRefreshing}
           onRefresh={this._onRefresh.bind(this)}
           colors={['#ff1234', '#00ff00', '#0000ff']}

@@ -39,9 +39,10 @@ class Strapi extends Component{
     return (
       <Router hideNavBar={true}>
         <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
+        <Schema name="modal" sceneConfig={Navigator.SceneConfigs.FadeAndroid}/>
         <Route name="Index" component={Index}/>
         <Route name="SingleImage" component={SingleImage}/>
-        <Route name="Image" component={Image}></Route>
+        <Route name="Image" schema="modal" component={Image}></Route>
       </Router>
     )
   }

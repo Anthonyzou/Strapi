@@ -49,4 +49,12 @@ module.exports = StyleSheet.create({
     height: 100,
     width: 100,
   },
+  button: {
+    elevation: 2,
+    borderRadius: 2,
+    backgroundColor: '#282D31',
+    margin: 5,
+    paddingTop: 10,
+    paddingBottom: 10
+  },
 });

@@ -7,12 +7,14 @@ import React, {
   ScrollView,
   Text,
   Image,
+  StyleSheet,
   TextInput,
   ToolbarAndroid,
   TouchableHighlight,
   TouchableOpacity,
   View,
   RecyclerViewBackedScrollView,
+  TouchableNativeFeedback,
 } from 'react-native';
 
 import styles  from './styles';
@@ -44,14 +46,18 @@ export default class Site extends Component{
   render(){
     return (
       <View style={{flex: 1}}>
-        <View style={{flexDirection:'row', flex: 1}}>
-          <TouchableHighlight >
-            <View style={{flexDirection:'row', flexDirection: 'row', alignItems : 'center'}}>
+        <View style={[{flexDirection:'row', flex: 1, justifyContent:'space-between'}]}>
+          <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('red', false)}>
+            <View style={[Styles.button,{flexDirection:'row', flexDirection: 'row', alignItems : 'center'}]}>
               <ImageCache src={this.favicon} style={styles.components.favicon}/>
               <Text style={styles.components.title}>{this.name}</Text>
             </View>
-          </TouchableHighlight>
-          <Text style={styles.components.title}>Favorites</Text>
+          </TouchableNativeFeedback>
+          <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('red', false)}>
+            <View style={Styles.button}>
+              <Text style={styles.components.title}>Favorites</Text>
+            </View>
+          </TouchableNativeFeedback>
         </View>
         { this.state.loaded &&
           <ListView
@@ -79,3 +85,14 @@ export default class Site extends Component{
     )
   }
 }
+
+const Styles = StyleSheet.create({
+  button: {
+    elevation: 2,
+    borderRadius: 2,
+    backgroundColor: '#282D31',
+    margin: 5,
+    paddingTop: 4,
+    paddingBottom: 4
+  },
+});
