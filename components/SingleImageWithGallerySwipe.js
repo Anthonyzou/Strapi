@@ -14,6 +14,8 @@ import React, {
   LayoutAnimation,
   ScrollView,
   TouchableNativeFeedback,
+  NativeModules,
+  Image,
   RecyclerViewBackedScrollView,
 } from 'react-native';
 var Modal   = require('react-native-modalbox');
@@ -24,6 +26,8 @@ import ImageZoom from 'react-native-image-zoom'
 
 import styles  from './styles';
 const {height, width} = Dimensions.get('window');
+const {UIManager} = NativeModules;
+
 
 export default class ExamplePage extends Component {
   constructor(props, context) {
@@ -56,12 +60,13 @@ export default class ExamplePage extends Component {
     )
   }
 
-  componentDidMount(){
-
+  componentWillMount() {
+    UIManager.setLayoutAnimationEnabledExperimental &&
+    UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
   tap(){
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
     const {height, width} = Dimensions.get('window');
     this.setState({
       scroll:!this.state.scroll,
@@ -77,7 +82,6 @@ export default class ExamplePage extends Component {
     const {height, width} = Dimensions.get('window');
     const style = {
       width: width,
-      flex:1,
       alignItems:'center',
       justifyContent:'center'
     }
@@ -94,7 +98,7 @@ export default class ExamplePage extends Component {
             onTap={this.tap.bind(this)}
             source={{uri: this.props.image.jpeg_url}}
             scale={this.state.scale}
-            style={[style, Styles.container, this.state.image, {backgroundColor:'#101010', }]}/>
+            style={[style, Styles.container, this.state.image]}/>
           <ListView
             dataSource={this.state.tags}
             renderRow={this.renderTag}
@@ -105,7 +109,7 @@ export default class ExamplePage extends Component {
     );
   }
 }
-var Styles = StyleSheet.create({
+const Styles = StyleSheet.create({
   wrapper: {
     paddingTop: 50,
     flex: 1

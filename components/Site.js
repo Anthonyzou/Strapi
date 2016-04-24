@@ -77,9 +77,9 @@ export default class Site extends Component{
         underlayColor={"#f0f0f0"}
         onPress={Actions.SingleImage.bind(null, {image:image})}
         >
-        <ImageCache
+        <Image
           resizeMode={ImageCache.fitCenter}
-          src={image.preview_url}
+          source={{uri:image.preview_url}}
           style={styles.components.thumbnail}
         />
       </TouchableHighlight>
