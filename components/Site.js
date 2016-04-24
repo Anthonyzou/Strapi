@@ -32,10 +32,9 @@ export default class Site extends Component{
 
   load (cb){
     this.run( (err, images) => {
-      var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       this.setState({
         loaded: true,
-        ds : ds.cloneWithRows(images)
+        ds : new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}).cloneWithRows(images)
       })
       if(cb){
         cb()
@@ -48,7 +47,7 @@ export default class Site extends Component{
       <View style={{flex: 1}}>
         <View style={[{flexDirection:'row', flex: 1, justifyContent:'space-between'}]}>
           <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('red', false)}>
-            <View style={[Styles.button,{flexDirection:'row', flexDirection: 'row', alignItems : 'center'}]}>
+            <View style={[{paddingLeft:5},Styles.button,{flexDirection:'row', flexDirection: 'row', alignItems : 'center'}]}>
               <ImageCache src={this.favicon} style={styles.components.favicon}/>
               <Text style={styles.components.title}>{this.name}</Text>
             </View>
@@ -76,8 +75,10 @@ export default class Site extends Component{
     return (
       <TouchableHighlight
         underlayColor={"#f0f0f0"}
-        onPress={Actions.SingleImage.bind(null, {image:image})}>
+        onPress={Actions.SingleImage.bind(null, {image:image})}
+        >
         <ImageCache
+          resizeMode={ImageCache.fitCenter}
           src={image.preview_url}
           style={styles.components.thumbnail}
         />

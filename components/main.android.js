@@ -10,7 +10,7 @@ import React, {
   Text,
   TextInput,
   ToolbarAndroid,
-  TouchableHighlight,
+  TouchableNativeFeedback,
   TouchableOpacity,
   View,
   RecyclerViewBackedScrollView,
@@ -26,34 +26,42 @@ export default class Index extends Component{
   constructor (props, context) {
     super(props, context);
 
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      sites: ds.cloneWithRows(Strats),
+      sites: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}).cloneWithRows(Strats),
       input: "",
     };
-    this.thisSites = []
     this.navigationView = (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <TouchableHighlight
-          underlayColor={"#f0f0f0"}>
-          <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          underlayColor={"#f0f0f0"}>
-          <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          underlayColor={"#f0f0f0"}>
-          <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          underlayColor={"#f0f0f0"}>
-          <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          underlayColor={"#f0f0f0"}>
-          <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
-        </TouchableHighlight>
+      <View style={{flex: 1, backgroundColor: 'grey'}}>
+        <TouchableNativeFeedback
+          background={TouchableNativeFeedback.Ripple('red', false)}>
+          <View styles={styles.button}>
+            <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
+          </View>
+        </TouchableNativeFeedback>
+        <TouchableNativeFeedback
+          background={TouchableNativeFeedback.Ripple('red', false)}>
+          <View styles={styles.button}>
+            <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
+          </View>
+        </TouchableNativeFeedback>
+        <TouchableNativeFeedback
+          background={TouchableNativeFeedback.Ripple('red', false)}>
+          <View styles={styles.button}>
+            <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
+          </View>
+        </TouchableNativeFeedback>
+        <TouchableNativeFeedback
+          background={TouchableNativeFeedback.Ripple('red', false)}>
+          <View styles={styles.button}>
+            <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
+          </View>
+        </TouchableNativeFeedback>
+        <TouchableNativeFeedback
+          background={TouchableNativeFeedback.Ripple('red', false)}>
+          <View styles={styles.button}>
+            <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
+          </View>
+        </TouchableNativeFeedback>
       </View>
     )
   }
@@ -106,7 +114,6 @@ export default class Index extends Component{
           >
             <ListView
               dataSource={this.state.sites}
-              renderScrollComponent={props => <RecyclerViewBackedScrollView {...props}></RecyclerViewBackedScrollView>}
               renderRow={this.renderRow.bind(this)}
             />
         </PullToRefreshViewAndroid>

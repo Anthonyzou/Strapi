@@ -49,8 +49,7 @@ class Strapi extends Component{
 }
 
 BackAndroid.addEventListener('hardwareBackPress', () => {
-  Actions.pop();
-  return true;
+  return Actions.pop();
 });
 
-AppRegistry.registerComponent('Strapi', () => Strapi);
+AppRegistry.registerComponent('strapi', () => Strapi);

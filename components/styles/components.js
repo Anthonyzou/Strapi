@@ -47,6 +47,7 @@ module.exports = StyleSheet.create({
   thumbnail: {
     padding: 5,
     height: 100,
+    flex:1,
     width: 100,
   },
   button: {

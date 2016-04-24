@@ -11,6 +11,7 @@ import React, {
   ListView,
   Dimensions,
   ToolbarAndroid,
+  LayoutAnimation,
   ScrollView,
   TouchableNativeFeedback,
   RecyclerViewBackedScrollView,
@@ -45,7 +46,9 @@ export default class ExamplePage extends Component {
 
   renderTag(tag){
     return (
-      <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('red', false)}>
+      <TouchableNativeFeedback
+        background={TouchableNativeFeedback.Ripple('red', false)}
+        onPress={()=>{console.log(23)}}>
         <View style={Styles.button}>
           <Text style={Styles.text}>{tag}</Text>
         </View>
@@ -58,21 +61,25 @@ export default class ExamplePage extends Component {
   }
 
   tap(){
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
     const {height, width} = Dimensions.get('window');
     this.setState({
-      scroll:false,
+      scroll:!this.state.scroll,
       image:{
-        height: this.state.image.height == 300 ? height-56 : 300,
+        height: this.state.image.height == 300 ? height : 300,
       },
       scale: this.state.image.height == 300 ? 0: 1,
       toolBarHeight: this.state.image.height == 300 ? 0:56,
-
     });
   }
 
   render() {
+    const {height, width} = Dimensions.get('window');
     const style = {
-      width: Math.min(width, this.props.image.width),
+      width: width,
+      flex:1,
+      alignItems:'center',
+      justifyContent:'center'
     }
     return (
       <View style={{flex:1, backgroundColor: '#262626'}}>
@@ -83,13 +90,11 @@ export default class ExamplePage extends Component {
           actions={[{title: 'Drawer!', show: 'always'}]}>
         </ToolbarAndroid>
         <ScrollView scrollEnabled={this.state.scroll}>
-          <View style={{backgroundColor:'#101010', }}>
-            <ImageZoom
-              onTap={this.tap.bind(this)}
-              source={{uri: this.props.image.jpeg_url}}
-              scale={this.state.scale}
-              style={[style, Styles.container, this.state.image]}/>
-          </View>
+          <ImageZoom
+            onTap={this.tap.bind(this)}
+            source={{uri: this.props.image.jpeg_url}}
+            scale={this.state.scale}
+            style={[style, Styles.container, this.state.image, {backgroundColor:'#101010', }]}/>
           <ListView
             dataSource={this.state.tags}
             renderRow={this.renderTag}
@@ -111,7 +116,7 @@ var Styles = StyleSheet.create({
     margin: 5,
     paddingTop: 10,
     backgroundColor: '#282D31',
-  
+
     paddingBottom: 10
   },
   container:{
