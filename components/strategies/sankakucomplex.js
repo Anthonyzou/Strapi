@@ -1,6 +1,6 @@
 'use strict';
 import _  from 'lodash';
-import Site from '../Site';
+import Site from '~/components/Site';
 /*
 cookie: login=TentacleGrape; pass_hash=4f3a9eb6c3f629174010854b6d0f13b9b9b16afb;
 */

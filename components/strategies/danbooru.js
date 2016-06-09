@@ -1,6 +1,6 @@
 'use strict';
 import _  from 'lodash';
-import Site from '../Site';
+import Site from '~/components/Site';
 
 export default class Danbooru extends Site{
   constructor(props, context){

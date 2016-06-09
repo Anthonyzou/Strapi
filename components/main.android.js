@@ -77,35 +77,20 @@ export default class Index extends Component{
 
   render() {
     return (
-      <DrawerLayoutAndroid
-        drawerWidth={300}
-        drawerPosition={DrawerLayoutAndroid.positions.Right}
-        ref={'DRAWER'}
-        renderNavigationView={() => this.navigationView}>
+      <View>
         <ToolbarAndroid
           style={styles.components.toolBar}
           title="Strapi"
           actions={[{title: 'Drawer!', show: 'always'}]}
           onActionSelected={this.onActionSelected.bind(this)}>
-            <TextInput
-              multiline={false}
-              style={{flex: 1,}}
-              value={this.state.input}
-              onChangeText={this.handleChange.bind(this)}></TextInput>
+
         </ToolbarAndroid>
-        <PullToRefreshViewAndroid
-          style={[styles.components.body,{ backgroundColor: '#4a4a4a'}]}
-          refreshing={this.state.isRefreshing}
-          onRefresh={this._onRefresh.bind(this)}
-          colors={['#ff1234', '#00ff00', '#0000ff']}
-          progressBackgroundColor={'white'}
-          >
+
             <ListView
               dataSource={this.state.sites}
               renderRow={this.renderRow.bind(this)}
             />
-        </PullToRefreshViewAndroid>
-      </DrawerLayoutAndroid>
+      </View>
     );
   }
   _onRefresh(){

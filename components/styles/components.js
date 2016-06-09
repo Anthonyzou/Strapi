@@ -6,7 +6,7 @@ module.exports = StyleSheet.create({
     flex: 1,
   },
   toolBar:{
-    backgroundColor: "#353535",
+    backgroundColor: "red",
     height: 56,
     elevation: 1,
     flexDirection : 'row'

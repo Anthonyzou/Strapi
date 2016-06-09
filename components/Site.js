@@ -57,6 +57,7 @@ export default class Site extends Component{
   }
 
   renderImage (image){
+    Image.prefetch(image.preview_url);
     return (
       <TouchableHighlight
         underlayColor={"#f0f0f0"}
