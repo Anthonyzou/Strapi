@@ -1,25 +1,10 @@
 
-import React, {
-  Component,
-  DrawerLayoutAndroid,
-  ListView,
-  PullToRefreshViewAndroid,
-  ScrollView,
-  Text,
-  Image,
-  StyleSheet,
-  TextInput,
-  ToolbarAndroid,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-  RecyclerViewBackedScrollView,
-  TouchableNativeFeedback,
-} from 'react-native';
+import React, {Component} from 'react';
+import {DrawerLayoutAndroid, ListView, PullToRefreshViewAndroid, ScrollView, Text, Image, StyleSheet, TextInput, ToolbarAndroid, TouchableHighlight, TouchableOpacity, View, RecyclerViewBackedScrollView, TouchableNativeFeedback} from 'react-native';
 
 import styles  from './styles';
 import {Actions} from 'react-native-router-flux'
-import ImageCache from 'react-native-image-cache'
+
 export default class Site extends Component{
   constructor (props, context) {
     super(props, context);
@@ -48,7 +33,7 @@ export default class Site extends Component{
         <View style={[{flexDirection:'row', flex: 1, justifyContent:'space-between'}]}>
           <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('red', false)}>
             <View style={[{paddingLeft:5},Styles.button,{flexDirection:'row', flexDirection: 'row', alignItems : 'center'}]}>
-              <ImageCache src={this.favicon} style={styles.components.favicon}/>
+              <Image source={{uri:this.favicon}} style={styles.components.favicon}/>
               <Text style={styles.components.title}>{this.name}</Text>
             </View>
           </TouchableNativeFeedback>
@@ -78,9 +63,9 @@ export default class Site extends Component{
         onPress={Actions.SingleImage.bind(null, {image:image})}
         >
         <Image
-          resizeMode={ImageCache.fitCenter}
+
           source={{uri:image.preview_url}}
-          style={styles.components.thumbnail}
+          style={{height:100, width:100}}
         />
       </TouchableHighlight>
     )

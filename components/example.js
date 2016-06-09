@@ -1,12 +1,6 @@
 'use strict';
-import React, {
-  Component,
-  StyleSheet,
-  Text,
-  View,
-  TouchableHighlight,
-  TextInput,
-} from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, Text, View, TouchableHighlight, TextInput} from 'react-native';
 
 export default class ExamplePage extends Component {
   constructor(props, context) {

@@ -1,20 +1,7 @@
 
 
-import React, {
-  Component,
-  DrawerLayoutAndroid,
-  Image,
-  ListView,
-  PullToRefreshViewAndroid,
-  ScrollView,
-  Text,
-  TextInput,
-  ToolbarAndroid,
-  TouchableNativeFeedback,
-  TouchableOpacity,
-  View,
-  RecyclerViewBackedScrollView,
-} from 'react-native';
+import React, {Component} from 'react';
+import {DrawerLayoutAndroid, Image, ListView, PullToRefreshViewAndroid, ScrollView, Text, TextInput, ToolbarAndroid, TouchableNativeFeedback, TouchableOpacity, View, RecyclerViewBackedScrollView} from 'react-native';
 
 import styles  from './styles';
 import Strats from './strategies';
@@ -30,6 +17,7 @@ export default class Index extends Component{
       sites: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}).cloneWithRows(Strats),
       input: "",
     };
+    
     this.navigationView = (
       <View style={{flex: 1, backgroundColor: 'grey'}}>
         <TouchableNativeFeedback

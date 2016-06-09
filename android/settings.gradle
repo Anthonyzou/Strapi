@@ -1,7 +1,3 @@
-rootProject.name = 'Strapi'
+rootProject.name = 'strapi'
 
 include ':app'
-include ':react-native-image-cache'
-project(':react-native-image-cache').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-cache/android')
-include ':react-native-image-zoom'
-project(':react-native-image-zoom').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-image-zoom/android')
